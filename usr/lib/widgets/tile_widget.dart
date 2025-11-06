@@ -3,12 +3,12 @@ import '../models/tile.dart';
 
 class TileWidget extends StatelessWidget {
   final Tile tile;
-  final int gridSize;
+  final double tileSize;
 
   const TileWidget({
     super.key,
     required this.tile,
-    required this.gridSize,
+    required this.tileSize,
   });
 
   Color _getTileColor(int value) {
@@ -53,38 +53,32 @@ class TileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final boardSize = constraints.maxWidth;
-        final tileSize = (boardSize - (gridSize + 1) * 8) / gridSize;
-        final left = tile.col * (tileSize + 8) + 8;
-        final top = tile.row * (tileSize + 8) + 8;
+    final left = tile.col * (tileSize + 8) + 8;
+    final top = tile.row * (tileSize + 8) + 8;
 
-        return AnimatedPositioned(
-          duration: const Duration(milliseconds: 200),
-          curve: Curves.easeInOut,
-          left: left,
-          top: top,
-          width: tileSize,
-          height: tileSize,
-          child: Container(
-            decoration: BoxDecoration(
-              color: _getTileColor(tile.value),
-              borderRadius: BorderRadius.circular(4),
-            ),
-            child: Center(
-              child: Text(
-                '${tile.value}',
-                style: TextStyle(
-                  fontSize: _getFontSize(tile.value),
-                  fontWeight: FontWeight.bold,
-                  color: _getTextColor(tile.value),
-                ),
-              ),
+    return AnimatedPositioned(
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.easeInOut,
+      left: left,
+      top: top,
+      width: tileSize,
+      height: tileSize,
+      child: Container(
+        decoration: BoxDecoration(
+          color: _getTileColor(tile.value),
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Center(
+          child: Text(
+            '${tile.value}',
+            style: TextStyle(
+              fontSize: _getFontSize(tile.value),
+              fontWeight: FontWeight.bold,
+              color: _getTextColor(tile.value),
             ),
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }
