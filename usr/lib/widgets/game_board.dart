@@ -47,7 +47,7 @@ class GameBoard extends StatelessWidget {
                     );
                   },
                 ),
-                // Tiles
+                // Tiles - each TileWidget returns AnimatedPositioned directly
                 ...List.generate(gridSize, (row) {
                   return List.generate(gridSize, (col) {
                     final tile = grid[row][col];
