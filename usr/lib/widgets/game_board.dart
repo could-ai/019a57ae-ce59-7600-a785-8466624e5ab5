@@ -30,27 +30,27 @@ class GameBoard extends StatelessWidget {
             ),
             child: Stack(
               children: [
-                // Background grid - use Positioned.fill to avoid parent data issues
-                Positioned.fill(
-                  child: GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: gridSize,
-                      crossAxisSpacing: spacing,
-                      mainAxisSpacing: spacing,
+                // Background grid
+                ...List.generate(gridSize * gridSize, (index) {
+                  final row = index ~/ gridSize;
+                  final col = index % gridSize;
+                  final left = col * (tileSize + spacing);
+                  final top = row * (tileSize + spacing);
+                  
+                  return Positioned(
+                    left: left,
+                    top: top,
+                    width: tileSize,
+                    height: tileSize,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFCDC1B4),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
                     ),
-                    itemCount: gridSize * gridSize,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFCDC1B4),
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                // Tiles layer - each TileWidget returns AnimatedPositioned directly
+                  );
+                }),
+                // Tiles
                 ...() {
                   final List<Widget> tiles = [];
                   for (int row = 0; row < gridSize; row++) {
