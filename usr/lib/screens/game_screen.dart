@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 import '../models/tile.dart';
-import '../widgets/tile_widget.dart';
 import '../widgets/game_board.dart';
 
 class GameScreen extends StatefulWidget {
@@ -313,7 +312,7 @@ class _GameScreenState extends State<GameScreen> with SingleTickerProviderStateM
                       child: Container(
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
-                          color: const Color(0xFFEDC22E).withOpacity(0.8),
+                          color: const Color(0xFFEDC22E).withValues(alpha: 0.8),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: const Text(
