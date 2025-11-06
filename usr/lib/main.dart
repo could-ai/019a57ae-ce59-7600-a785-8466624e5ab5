@@ -17,7 +17,11 @@ class Game2048App extends StatelessWidget {
         primarySwatch: Colors.orange,
         scaffoldBackgroundColor: const Color(0xFFFAF8EF),
       ),
+      // Ensure both '/' and initial route point to GameScreen
       home: const GameScreen(),
+      routes: {
+        '/': (context) => const GameScreen(),
+      },
     );
   }
 }
