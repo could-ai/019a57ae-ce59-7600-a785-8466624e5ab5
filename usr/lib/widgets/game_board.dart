@@ -47,19 +47,25 @@ class GameBoard extends StatelessWidget {
                     );
                   },
                 ),
-                // Tiles - each TileWidget returns AnimatedPositioned directly
-                ...List.generate(gridSize, (row) {
-                  return List.generate(gridSize, (col) {
-                    final tile = grid[row][col];
-                    if (tile != null) {
-                      return TileWidget(
-                        tile: tile,
-                        tileSize: tileSize,
-                      );
+                // Tiles layer - each TileWidget returns AnimatedPositioned directly
+                ...() {
+                  final List<Widget> tiles = [];
+                  for (int row = 0; row < gridSize; row++) {
+                    for (int col = 0; col < gridSize; col++) {
+                      final tile = grid[row][col];
+                      if (tile != null) {
+                        tiles.add(
+                          TileWidget(
+                            key: ValueKey('${tile.row}_${tile.col}_${tile.value}'),
+                            tile: tile,
+                            tileSize: tileSize,
+                          ),
+                        );
+                      }
                     }
-                    return const SizedBox.shrink();
-                  });
-                }).expand((element) => element),
+                  }
+                  return tiles;
+                }(),
               ],
             ),
           );
