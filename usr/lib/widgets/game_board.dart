@@ -30,46 +30,31 @@ class GameBoard extends StatelessWidget {
             ),
             child: Stack(
               children: [
-                // Background grid
-                ...List.generate(gridSize * gridSize, (index) {
-                  final row = index ~/ gridSize;
-                  final col = index % gridSize;
-                  final left = col * (tileSize + spacing);
-                  final top = row * (tileSize + spacing);
-                  
-                  return Positioned(
-                    left: left,
-                    top: top,
-                    width: tileSize,
-                    height: tileSize,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFCDC1B4),
-                        borderRadius: BorderRadius.circular(4),
+                // Background grid cells
+                for (int row = 0; row < gridSize; row++)
+                  for (int col = 0; col < gridSize; col++)
+                    Positioned(
+                      left: col * (tileSize + spacing),
+                      top: row * (tileSize + spacing),
+                      width: tileSize,
+                      height: tileSize,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFCDC1B4),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
                       ),
                     ),
-                  );
-                }),
-                // Tiles
-                ...() {
-                  final List<Widget> tiles = [];
-                  for (int row = 0; row < gridSize; row++) {
-                    for (int col = 0; col < gridSize; col++) {
-                      final tile = grid[row][col];
-                      if (tile != null) {
-                        tiles.add(
-                          TileWidget(
-                            key: ValueKey('${tile.row}_${tile.col}_${tile.value}'),
-                            tile: tile,
-                            tileSize: tileSize,
-                            spacing: spacing,
-                          ),
-                        );
-                      }
-                    }
-                  }
-                  return tiles;
-                }(),
+                // Tile widgets
+                for (int row = 0; row < gridSize; row++)
+                  for (int col = 0; col < gridSize; col++)
+                    if (grid[row][col] != null)
+                      TileWidget(
+                        key: ValueKey('${grid[row][col]!.row}_${grid[row][col]!.col}_${grid[row][col]!.value}'),
+                        tile: grid[row][col]!,
+                        tileSize: tileSize,
+                        spacing: spacing,
+                      ),
               ],
             ),
           );
