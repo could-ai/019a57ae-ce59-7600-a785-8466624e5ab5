@@ -4,11 +4,13 @@ import '../models/tile.dart';
 class TileWidget extends StatelessWidget {
   final Tile tile;
   final double tileSize;
+  final double spacing;
 
   const TileWidget({
     super.key,
     required this.tile,
     required this.tileSize,
+    required this.spacing,
   });
 
   Color _getTileColor(int value) {
@@ -53,8 +55,8 @@ class TileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final left = tile.col * (tileSize + 8) + 8;
-    final top = tile.row * (tileSize + 8) + 8;
+    final left = tile.col * (tileSize + spacing) + spacing;
+    final top = tile.row * (tileSize + spacing) + spacing;
 
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 200),
